@@ -72,4 +72,7 @@ web-ext sign --api-key=$AMO_JWT_ISSUER --api-secret=$AMO_JWT_SECRET
 生成されたxpiをドロップボックスやHPにアップロードします。  
 アンドロイド端末でアクセスできる場所なら何でもいいです。  
 web-ext-artifacts内に生成されたxpiファイルをアップロードしてください。  
-アップロードしたxpiファイルを、android端末からドロップボックスアプリなりファイアフォックスで直接アクセスすれば無事、アドオンを導入できます。
+アップロードしたxpiファイルを、android端末からドロップボックスアプリなりファイアフォックスで直接アクセスすれば無事、アドオンを導入できます。  
+
+web-ext signを実行するたびに、manifest.jsonのversionを変更する必要があります。  
+versionを変更しないと、version exitstエラーが出て、xpiを生成できません。
