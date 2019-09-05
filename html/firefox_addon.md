@@ -4,6 +4,11 @@ webextensionの書き方とかは別の記事で、今回は拡張機能をパ�
 
 
 ## 環境構築
+### 0.androidに開発テスト用のfirefoxをインストールする
+firefox Nightlyをアンドロイド端末にインストールしてください。  
+このファイアフォックスでテスト等を行います。  
+普段firefoxを使っている人もいない人も、普段使いのぐちゃぐちゃした環境と切り離すため、テスト専用としてこちらを利用することをおすすめします。
+
 ### 1.node.jsをインストールする(win版)<br>
 インストールされてるか、できたかの確認コマンド
 
@@ -46,9 +51,25 @@ web-ext --version
 
 ## アドオンのパッケージ化～実行
 ### パッケージ化
-manifest.jsonがあるディレクトリで
+署名無しならmanifest.jsonがあるディレクトリで
 ```
 web-ext build
 ```
 で終わり。  
+ただし、色々制限があってやりにくいので署名推奨。  
+下記のようにxpiを直接投げてテストする場合は署名必須なので注意  
 web-ext-artifacts内に作成されたパッケージ(zipファイル)が保存される。  
+
+署名のために開発者登録をする
+https://addons.mozilla.org/en-US/developers/addon/api/key/  
+登録してapi_keyを取得しておく  
+jwt issuer　とjwt secretが発行される
+
+```
+web-ext sign --api-key=$AMO_JWT_ISSUER --api-secret=$AMO_JWT_SECRET 
+```
+
+生成されたxpiをドロップボックスやHPにアップロードします。  
+アンドロイド端末でアクセスできる場所なら何でもいいです。  
+web-ext-artifacts内に生成されたxpiファイルをアップロードしてください。  
+アップロードしたxpiファイルを、android端末からドロップボックスアプリなりファイアフォックスで直接アクセスすれば無事、アドオンを導入できます。
