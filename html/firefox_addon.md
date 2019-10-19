@@ -76,3 +76,14 @@ web-ext-artifacts内に生成されたxpiファイルをアップロードして
 
 web-ext signを実行するたびに、manifest.jsonのversionを変更する必要があります。  
 versionを変更しないと、version exitstエラーが出て、xpiを生成できません。
+
+
+## エラーとかコンソール見ながらデバッグしよう
+firefox(36以降)の開発ツールをAndroid版firefoxに接続する方法 
+
+about:debugging
+
+を開く。セットアップ→リモートデバイスへの接続　を行う。
+Android側でもファイアフォックス起動、設定からリモートデバッグを許可する。
+
+PC側のFirefoxに、Android側のFirefoxの情報（開いているタブ、導入されているアドオン等）が表示されるため、デバッグしたい項目を選択する。
