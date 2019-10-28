@@ -50,7 +50,7 @@ web-ext --version
 ```
 
 ## アドオンのパッケージ化～実行
-### パッケージ化
+### パッケージ化(非署名)
 署名無しならmanifest.jsonがあるディレクトリで
 ```
 web-ext build
@@ -60,30 +60,41 @@ web-ext build
 下記のようにxpiを直接投げてテストする場合は署名必須なので注意  
 web-ext-artifacts内に作成されたパッケージ(zipファイル)が保存される。  
 
+## パッケージ化（署名有り）
 署名のために開発者登録をする
 https://addons.mozilla.org/en-US/developers/addon/api/key/  
 登録してapi_keyを取得しておく  
 jwt issuer　とjwt secretが発行される
 
+以下のコマンドを、node.js command promptで実行する。
+
 ```
 web-ext sign --api-key=$AMO_JWT_ISSUER --api-secret=$AMO_JWT_SECRET 
 ```
 
+web-ext-artifactsというディレクトリが作成され、その下にxpiファイルが作成されます。
+
 生成されたxpiをドロップボックスやHPにアップロードします。  
 アンドロイド端末でアクセスできる場所なら何でもいいです。  
 web-ext-artifacts内に生成されたxpiファイルをアップロードしてください。  
-アップロードしたxpiファイルを、android端末からドロップボックスアプリなりファイアフォックスで直接アクセスすれば無事、アドオンを導入できます。  
+アップロードしたxpiファイルを、android端末からドロップボックスアプリ（開くアプリ選択でfirefoxを選択）なりファイアフォックスで直接アクセスすれば無事、アドオンを導入できます。  
 
 web-ext signを実行するたびに、manifest.jsonのversionを変更する必要があります。  
 versionを変更しないと、version exitstエラーが出て、xpiを生成できません。
 
 
 ## エラーとかコンソール見ながらデバッグしよう
-firefox(36以降)の開発ツールをAndroid版firefoxに接続する方法 
+firefox(36以降)の開発ツールをAndroid版firefoxに接続する方法。古いFirefoxのバージョンだとやり方が違うようなので注意。２０１９年１０月時点で最新のやり方がこれ。一番ラクなのもこれ（adbとか使わなくて済む）
+
+PC側のfirefoxを開いて
 
 about:debugging
 
 を開く。セットアップ→リモートデバイスへの接続　を行う。
 Android側でもファイアフォックス起動、設定からリモートデバッグを許可する。
 
+接続後、左の方にアンドロイド端末が表示されるので、接続を選択。端末名をクリックでAndroid側の情報が表示されるようになる。
+
 PC側のFirefoxに、Android側のFirefoxの情報（開いているタブ、導入されているアドオン等）が表示されるため、デバッグしたい項目を選択する。
+
+デバッグしたいアドオン名等の欄の調査を選択するとコンソールが出る。ここに console.log()を使って変数やら文字列を表示するといわゆるprintfデバッグができる。
