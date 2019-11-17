@@ -12,6 +12,7 @@ $ docker run -d -p 8800:80 --name rabo -v //c/Users/Owner/docker/RTOS://home/sim
 
 #マウントしてポート8800→80につないで実行
 $ docker exec –it name bash     #コンテナ名nameのbashに入る winpty～で怒られるなら winpty docker execで
+$ docker-machine ssh default    #日本語周りでどうしても調子悪いならこれで解決する
 $ docker build –t name:tag .       #dockerfileからコンテナ作成
 $ docker commit コンテナ名 イメージ名:タグ  #コンテナをイメージ化
 $ docker  pull リポジトリ    #イメージをダウンロードする。pushでアップロード
@@ -22,8 +23,10 @@ $ docker rm コンテナ名             #コンテナを消す(必ず止めて�
 $ docker stop $(docker ps –q) 　#起動しているコンテナを全部止める
 $ docker rm $(dockere ps –q)   #起動しているコンテナを全部消す
 $ docker rmi イメージ名　#イメージの削除.イメージが持ってるコンテナをすべて消す必要がある.
+$ docker-machine ip  #docker-machineのipを確認する。
 
-コンテナから抜けるときは Ctrl + P + Q
+コンテナから抜けるときは Ctrl + P + Q を使うのがお作法  
+docker-machine コマンドは当然docker-machine外でしか使えないので注意
 
 </pre>
 # 最初に
